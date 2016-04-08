@@ -25,6 +25,9 @@ package com.squid.core.jdbc.vendor.postgresql.render;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.squid.core.database.impl.DataSourceReliable;
 import com.squid.core.database.metadata.IMetadataEngine;
 import com.squid.core.database.model.DatabaseProduct;
@@ -66,6 +69,9 @@ public class PostgresSkinProvider
 extends DefaultSkinProvider
 {
 
+	static final Logger logger = LoggerFactory
+			.getLogger(PostgresSkinProvider.class);
+
 	private static final ZeroIfNullFeatureSupport zeroIfNull = new ANSIZeroIfNullFeatureSupport();
 
 	public PostgresSkinProvider() {
@@ -90,6 +96,7 @@ extends DefaultSkinProvider
 		registerOperatorRender(DateOperatorDefinition.FROM_UNIXTIME, new PostgresDateEpochOperatorRenderer(DateEpochOperatorRenderer.FROM));
 		registerOperatorRender(DateOperatorDefinition.TO_UNIXTIME, new PostgresDateEpochOperatorRenderer(DateEpochOperatorRenderer.TO));
         registerOperatorRender(DateTruncateOperatorDefinition.DATE_TRUNCATE, new PostgresDateTruncateOperatorRenderer());
+        logger.info("Postgresql plugin: support for Date_Truncate shortcuts");
 		registerOperatorRender(DateTruncateShortcutsOperatorDefinition.HOURLY_ID, new PostgresDateTruncateOperatorRenderer());
 		registerOperatorRender(DateTruncateShortcutsOperatorDefinition.DAILY_ID, new PostgresDateTruncateOperatorRenderer());
 		registerOperatorRender(DateTruncateShortcutsOperatorDefinition.WEEKLY_ID, new PostgresDateTruncateOperatorRenderer());
